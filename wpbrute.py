@@ -29,9 +29,6 @@ print(str(sys.argv))
 print("URL: " + url)
 print("login: " + log)
 
-protocol = url.split(":")[0]
-dns = (url.split("/"))
-
 with open("passwords.lst", 'r') as f:
     passwords = f.read().rsplit('\n')
 
