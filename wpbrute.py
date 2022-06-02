@@ -10,7 +10,7 @@ import sys
 
 
 banner = "#################################################################\n\
-####    pro version? contact me on pablomr@protonmail.me    ####\n\
+####    pro version? contact me on pablomr@proton.me    ####\n\
 #################################################################"
 
 print(banner)
